@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Idea Presentation</title>
+    <title>Float Chat Presentation</title>
+    <link rel="icon" type="image/png" href="assests/image (10).png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
         rel="stylesheet">
@@ -34,11 +35,29 @@
             scroll-behavior: smooth;
         }
 
-        /* Slide-up animation */
+        /* --- NEW: Floating keyframes for CTA button --- */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            50% {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+            }
+
+            100% {
+                transform: translateY(0);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* Slide-up animation: SPEED INCREASED from 1s to 0.8s */
         .slide-up {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .slide-up.show {
@@ -109,13 +128,27 @@
             color: var(--primary-bg);
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             font-weight: 700;
+            /* NEW: Apply floating animation */
+            animation: float 3s ease-in-out infinite;
         }
 
         .learn-more-btn:hover {
             background-color: var(--dark-accent-color);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            /* NEW: Stop floating animation on hover */
+            animation: none;
         }
+
+        /* NEW: Tech Stack Icon Hover Effect */
+        .tech-icon-container {
+            transition: transform 0.3s ease;
+        }
+
+        .tech-icon-container:hover {
+            transform: scale(1.1);
+        }
+
 
         /* Scroll-to-top button */
         #scroll-to-top {
@@ -195,14 +228,17 @@
         .lightbox-close {
             top: 20px;
             right: 20px;
+            border-radius: 10px;
         }
 
         .lightbox-nav.prev {
             left: -50px;
+            border-radius: 10px;
         }
 
         .lightbox-nav.next {
             right: -50px;
+            border-radius: 10px;
         }
 
         .lightbox-close:hover,
@@ -230,12 +266,10 @@
 
 <body class="bg-white text-gray-900">
 
-    <!-- Navbar -->
     <nav id="navbar">
         <div class="max-w-7xl mx-auto px-2 py-2 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="assests/image (10).png" alt="Float-Chat Logo"
-                    class="h-14 w-auto nav-title-element">
+                <img src="assests/image.png" alt="Float-Chat Logo" class="h-14 w-auto nav-title-element">
                 <h1 class="text-3xl font-extrabold tracking-tight nav-title">Float-Chat</h1>
             </div>
             <ul class="flex space-x-8">
@@ -248,84 +282,101 @@
         </div>
     </nav>
 
-    <!-- Sections -->
-<section id="home" class="relative h-screen flex items-center justify-center bg-white overflow-hidden">
-    <!-- Local video background -->
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-        <source src="assests/4328577-uhd_3840_2160_30fps.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <section id="home" class="relative h-screen flex items-center justify-center bg-white overflow-hidden">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="assests/4328577-uhd_3840_2160_30fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-    <div class="absolute inset-0 bg-black opacity-20 z-10"></div> 
+        <div class="absolute inset-0 bg-black opacity-20 z-10"></div>
 
-    <div class="relative text-center slide-up px-6 max-w-4xl mx-auto z-20 text-white"> 
-        <h2 class="text-6xl md:text-8xl font-extrabold mb-6">The <span style="color:var(--accent-color);">Float</span> chat</h2>
-        <p class="mt-6 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            An innovative solution, meticulously crafted to transform challenges into opportunities and simplify everyday experiences.
-        </p>
-        <a href="#videos" class="learn-more-btn mt-12 inline-block px-10 py-5 text-lg rounded-full shadow-lg">
-            Explore Our Prototype
-        </a>
-    </div>
-</section>
+        <div class="relative text-center slide-up px-6 max-w-4xl mx-auto z-20 text-white">
+            <h2 class="text-6xl md:text-8xl font-extrabold mb-6">The <span
+                    style="color:var(--accent-color);">Float</span> chat</h2>
+            <p class="mt-6 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
+                An innovative solution, meticulously crafted to transform challenges into opportunities and simplify
+                everyday experiences.
+            </p>
+            <a href="#videos" class="learn-more-btn mt-12 inline-block px-10 py-5 text-lg rounded-full shadow-lg">
+                Explore Our Prototype
+            </a>
+        </div>
+    </section>
 
- <section id="images" class="py-28 max-w-7xl mx-auto px-8 bg-secondary-bg">
+    <section id="images" class="py-28 max-w-7xl mx-auto px-8 bg-secondary-bg">
         <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">Visualizing Our Vision</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="bg-white shadow-xl rounded-xl p-7 slide-up card" data-src="assests/Dashboard.png">
+            <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Dashboard.png">
                 <img src="assests/Dashboard.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
                     alt="Main data dashboard view">
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Dashboard</h3>
                 <p class="text-gray-600 text-base">
-                    A high-level overview displaying key operational metrics and real-time BGC data summaries for quick analysis.
+                    A high-level overview displaying key operational metrics and real-time BGC data summaries for quick
+                    analysis.
                     This central hub provides actionable insights into the status of all tracked assets.
                 </p>
             </div>
-            <div class="bg-white shadow-xl rounded-xl p-7 slide-up card" data-src="assests/Float chat.png">
+            <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Float chat.png"
+                style="transition-delay: 0.1s;">
                 <img src="assests/Float chat.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
                     alt="AI chat interface for natural language query">
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Float Chat AI </h3>
                 <p class="text-gray-600 text-base">
-                    The core interaction point where users input natural language questions to generate data queries or factual answers.
+                    The core interaction point where users input natural language questions to generate data queries or
+                    factual answers.
                     It leverages RAG technology to ensure accurate, context-grounded responses from the database.
                 </p>
             </div>
-            <div class="bg-white shadow-xl rounded-xl p-7 slide-up card" data-src="assests/Aboutus.png">
+            <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Aboutus.png"
+                style="transition-delay: 0.2s;">
                 <img src="assests/Aboutus.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
                     alt="About Us information screen">
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">About Us</h3>
                 <p class="text-gray-600 text-base">
-                    Details the mission and team behind the project, ensuring transparency and building user trust in the system.
+                    Details the mission and team behind the project, ensuring transparency and building user trust in
+                    the
+                    system.
                     Discover our commitment to innovative data solutions and shaping a streamlined future.
                 </p>
             </div>
-           
-                    <div class="bg-white shadow-xl rounded-xl p-7 slide-up card" data-src="assests/Map view.png">
-                        <img src="assests/Map view.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
-                            alt="Geospatial data map visualization">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Map View</h3>
-                        <p class="text-gray-600 text-base">
-                            Visual representation of geospatial data, allowing users to track and analyze BGC float deployments across oceans.
-                            This interactive feature is essential for monitoring asset locations and historical routes.
-                        </p>
-                    </div>
-                    <div class="bg-white shadow-xl rounded-xl p-7 slide-up card" data-src="assests/Settings.png">
-                        <img src="assests/Settings.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
-                            alt="User and application settings configuration">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Settings</h3>
-                        <p class="text-gray-600 text-base">
-                            Allows users to manage account preferences, configure data display options, and adjust notification settings.
-                            Control the look and feel of the interface and tailor data views to your specific needs.
-                        </p>
-                    </div>
-        
+
+            <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Map view.png"
+                style="transition-delay: 0.3s;">
+                <img src="assests/Map view.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                    alt="Geospatial data map visualization">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Map View</h3>
+                <p class="text-gray-600 text-base">
+                    Visual representation of geospatial data, allowing users to track and analyze BGC float deployments
+                    across oceans.
+                    This interactive feature is essential for monitoring asset locations and historical routes.
+                </p>
+            </div>
+            <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Settings.png"
+                style="transition-delay: 0.4s;">
+                <img src="assests/Settings.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                    alt="User and application settings configuration">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Settings</h3>
+                <p class="text-gray-600 text-base">
+                    Allows users to manage account preferences, configure data display options, and adjust notification
+                    settings.
+                    Control the look and feel of the interface and tailor data views to your specific needs.
+                </p>
+            </div>
+            <div class="hidden lg:block bg-secondary-bg/50 p-7 slide-up" style="transition-delay: 0.5s;">
+                <h3 class="text-2xl font-bold text-gray-400 mb-2">More Coming Soon!</h3>
+                <p class="text-gray-400 text-base">
+                    We are constantly working to expand our visual data features and provide more interactive tools for
+                    advanced analysis.
+                </p>
+            </div>
+
         </div>
     </section>
     <section id="videos" class="py-28 bg-white">
         <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">The Idea in Motion</h2>
         <div class="max-w-5xl mx-auto px-8 slide-up">
-            <div class="aspect-w-16 aspect-h-9">
-                <iframe class="w-full h-[500px] rounded-xl shadow-xl border border-gray-200"
+            <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-xl border border-gray-200">
+                <iframe class="absolute top-0 left-0 w-full h-full"
                     src="https://drive.google.com/file/d/1jKSSCZvoES4yDef2FPIlpj-cXHwD3aCj/preview"
                     title="Idea Explanation Video from Drive" frameborder="0"
                     allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
@@ -339,115 +390,129 @@
 
     <section id="stack" class="py-28 max-w-7xl mx-auto px-8 bg-secondary-bg">
         <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">Our Technology Stack 🚀</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 text-center">
 
             <div class="slide-up">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">💻</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    💻</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Frontend UI</h3>
                 <p class="text-gray-600 text-lg">Modern user interface and data visualization built with HTML,
                     JavaScript, and Tailwind CSS.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.1s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">⚡</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">⚡
+                </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Backend API</h3>
                 <p class="text-gray-600 text-lg">High-performance orchestration of the RAG pipeline and request
                     management using FastAPI.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.2s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">🧠</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    🧠</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">LLM Router</h3>
                 <p class="text-gray-600 text-lg">Determines user intent (SQL Query vs. Text Answer) and guides
                     generation using Llama3.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.3s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">☁️</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    ☁️</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">LLM Server</h3>
                 <p class="text-gray-600 text-lg">Locally hosts and serves the Llama3 model and embedding models via
                     Ollama.</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 mt-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 mt-12 text-center">
 
             <div class="slide-up" style="transition-delay: 0.4s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">🐘</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    🐘</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Relational Data</h3>
                 <p class="text-gray-600 text-lg">Stores all high-volume, structured numerical and time-series data using
                     PostgreSQL.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.5s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">🗃️</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    🗃️</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Vector Data (RAG)</h3>
                 <p class="text-gray-600 text-lg">Manages contextual definitions and metadata for grounded answers in
                     ChromaDB.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.6s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">🔗</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    🔗</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Drivers & Embeddings</h3>
                 <p class="text-gray-600 text-lg">Uses psycopg2 to connect to PostgreSQL and nomic-embed-text for vector
                     creation.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.7s;">
-                <div class="text-7xl mb-4" style="color:var(--accent-color);">🛠️</div>
+                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                    🛠️</div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Utilities</h3>
                 <p class="text-gray-600 text-lg">Handles asynchronous requests (httpx), data validation (Pydantic), and
                     SQL parsing (re).</p>
             </div>
         </div>
     </section>
-   <section id="about" class="py-28 max-w-4xl mx-auto px-8 bg-white">
-    <h2 class="text-5xl font-extrabold text-center mb-12 slide-up">Current Prototype Status</h2>
-    
-    <p class="text-gray-600 text-xl leading-relaxed text-center slide-up mb-12">
-        The FloatChat Data Viewer is a working proof-of-concept. This prototype successfully integrates a complex RAG and LLM pipeline to enable natural language interaction with structured data.
-    </p>
+    <section id="about" class="py-28 max-w-4xl mx-auto px-8 bg-white">
+        <h2 class="text-5xl font-extrabold text-center mb-12 slide-up">Current Prototype Status</h2>
 
-    <div class="space-y-10">
-        
-        <div class="flex items-start text-left slide-up" style="transition-delay: 0.1s;">
-            <div class="text-4xl mr-4" style="color:var(--accent-color);">✅</div>
-            <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-1">Completion</h3>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    The end-to-end pipeline is functional, demonstrating successful data ingestion, RAG-powered SQL generation, execution, and final data retrieval.
-                </p>
-            </div>
-        </div>
-        
-        <div class="flex items-start text-left slide-up" style="transition-delay: 0.2s;">
-            <div class="text-4xl mr-4" style="color:var(--accent-color);">🛡️</div>
-            <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-1">Validation</h3>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    We have successfully implemented strict prompt engineering to prevent model hallucination and ensure the AI accurately discriminates between factual questions (returning text) and data questions (returning SQL).
-                </p>
-            </div>
-        </div>
-        
-        <div class="flex items-start text-left slide-up" style="transition-delay: 0.3s;">
-            <div class="text-4xl mr-4" style="color:var(--accent-color);">📈</div>
-            <div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-1">Next Steps</h3>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    The core framework is massively scalable and ready to be extended with more complex BGC (Biogeochemical) datasets and advanced interactive plotting features.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+        <p class="text-gray-600 text-xl leading-relaxed text-center slide-up mb-12">
+            The FloatChat Data Viewer is a working proof-of-concept. This prototype successfully integrates a complex
+            RAG
+            and LLM pipeline to enable natural language interaction with structured data.
+        </p>
 
-   <footer class="bg-dark-bg text-400 text-center py-5 border-t border-gray-800">
-    <p class="text-lg">
-        &copy; 2025 My Idea. All rights reserved. Designed with 
-        <span class="text-teal-400 font-semibold">passion</span>.
-    </p>
-</footer>
+        <div class="space-y-10">
+
+            <div class="flex items-start text-left slide-up" style="transition-delay: 0.1s;">
+                <div class="text-4xl mr-4" style="color:var(--accent-color);">✅</div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Completion</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        The end-to-end pipeline is functional, demonstrating successful data ingestion, RAG-powered SQL
+                        generation, execution, and final data retrieval.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start text-left slide-up" style="transition-delay: 0.2s;">
+                <div class="text-4xl mr-4" style="color:var(--accent-color);">🛡️</div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Validation</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        We have successfully implemented strict prompt engineering to prevent model hallucination and
+                        ensure the AI accurately discriminates between factual questions (returning text) and data
+                        questions (returning SQL).
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start text-left slide-up" style="transition-delay: 0.3s;">
+                <div class="text-4xl mr-4" style="color:var(--accent-color);">📈</div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Next Steps</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        The core framework is massively scalable and ready to be extended with more complex BGC
+                        (Biogeochemical) datasets and advanced interactive plotting features.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark-bg text-gray-400 text-center py-5 border-t border-gray-800">
+        <p class="text-lg">
+            &copy; 2025 My Idea. All rights reserved. Designed with
+            <span class="text-teal-400 font-semibold">passion</span>.
+        </p>
+    </footer>
 
 
     <button id="scroll-to-top" title="Scroll to Top" aria-label="Scroll to Top">&uarr;</button>
@@ -462,8 +527,6 @@
     </div>
 
     <script>
-        // --- FIX: Removed old erroneous navbar animation code ---
-
         // Navbar scroll effect
         const navbar = document.getElementById("navbar");
         window.addEventListener("scroll", () => {
@@ -490,7 +553,7 @@
         // Active navbar links
         const sections = document.querySelectorAll("section");
         const navLinks = document.querySelectorAll(".nav-link");
-        
+
         const updateActiveLink = () => {
             let current = "";
             sections.forEach((section) => {
@@ -507,10 +570,10 @@
                 }
             });
         };
-        
+
         // Use a slight delay to ensure sections are measured correctly on load
         window.addEventListener("load", () => {
-             setTimeout(updateActiveLink, 100);
+            setTimeout(updateActiveLink, 100);
         });
         window.addEventListener("scroll", updateActiveLink);
         window.addEventListener("resize", updateActiveLink);
