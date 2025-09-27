@@ -16,13 +16,9 @@
             --text-color: #212121;
             --light-text-color: #616161;
             --dark-bg: #1A1A1A;
-            /* Solid color for scrolled navbar */
             --nav-link-color: #9CA3AF;
-            /* Gray for links on black */
             --accent-color: #00bcd4;
-            /* Teal 500 */
             --dark-accent-color: #0097a7;
-            /* Teal 700 */
         }
 
         body {
@@ -34,8 +30,12 @@
         html {
             scroll-behavior: smooth;
         }
+        
+        /* NEW: Utility class to prevent body scroll when mobile menu is open */
+        .no-scroll {
+            overflow: hidden;
+        }
 
-        /* --- NEW: Floating keyframes for CTA button --- */
         @keyframes float {
             0% {
                 transform: translateY(0);
@@ -53,7 +53,6 @@
             }
         }
 
-        /* Slide-up animation: SPEED INCREASED from 1s to 0.8s */
         .slide-up {
             opacity: 0;
             transform: translateY(50px);
@@ -87,7 +86,8 @@
             font-weight: 800;
             transition: color 0.3s ease;
         }
-
+        
+        /* Desktop links */
         #navbar .nav-link {
             color: rgb(255, 255, 255);
             margin-left: 1.5rem;
@@ -102,14 +102,23 @@
         #navbar .nav-link:hover {
             color: var(--accent-color);
         }
+        
+        /* Mobile links in the hidden menu */
+        .mobile-menu-link {
+            color: white;
+            padding: 1rem;
+            display: block;
+            transition: color 0.2s;
+        }
+        .mobile-menu-link:hover {
+            color: var(--accent-color);
+        }
 
-        /* Active navbar highlight */
         .active-link {
             color: var(--accent-color) !important;
             font-weight: 700;
         }
 
-        /* Card hover effect */
         .card {
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
@@ -122,13 +131,11 @@
             border-color: var(--accent-color);
         }
 
-        /* Learn More button */
         .learn-more-btn {
             background-color: var(--accent-color);
             color: var(--primary-bg);
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             font-weight: 700;
-            /* NEW: Apply floating animation */
             animation: float 3s ease-in-out infinite;
         }
 
@@ -136,11 +143,9 @@
             background-color: var(--dark-accent-color);
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            /* NEW: Stop floating animation on hover */
             animation: none;
         }
 
-        /* NEW: Tech Stack Icon Hover Effect */
         .tech-icon-container {
             transition: transform 0.3s ease;
         }
@@ -173,7 +178,7 @@
             transform: translateY(-2px);
         }
 
-        /* Lightbox Overlay */
+        /* Lightbox (Already responsive due to media query below) */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -266,13 +271,29 @@
 
 <body class="bg-white text-gray-900">
 
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-dark-bg/95 z-40 transition-transform duration-300 translate-x-full md:hidden">
+        <ul class="flex flex-col items-center justify-center h-full space-y-6 text-2xl font-bold">
+            <li><a href="#home" class="mobile-menu-link" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="#images" class="mobile-menu-link" onclick="closeMobileMenu()">Visuals</a></li>
+            <li><a href="#videos" class="mobile-menu-link" onclick="closeMobileMenu()">Video</a></li>
+            <li><a href="#stack" class="mobile-menu-link" onclick="closeMobileMenu()">Tech Stack</a></li>
+            <li><a href="#about" class="mobile-menu-link" onclick="closeMobileMenu()">Status</a></li>
+        </ul>
+    </div>
+
     <nav id="navbar">
-        <div class="max-w-7xl mx-auto px-2 py-2 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="assests/image.png" alt="Float-Chat Logo" class="h-14 w-auto nav-title-element">
-                <h1 class="text-3xl font-extrabold tracking-tight nav-title">Float-Chat</h1>
+                <img src="assests/image.png" alt="Float-Chat Logo" class="h-10 sm:h-14 w-auto nav-title-element">
+                <h1 class="text-xl sm:text-3xl font-extrabold tracking-tight nav-title">Float-Chat</h1>
             </div>
-            <ul class="flex space-x-8">
+
+            <button id="menu-btn" class="md:hidden text-white text-3xl z-50 focus:outline-none"
+                aria-label="Toggle navigation menu">
+                &#9776; </button>
+
+            <ul id="desktop-menu" class="hidden md:flex space-x-8">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#images" class="nav-link">Visuals</a></li>
                 <li><a href="#videos" class="nav-link">Video</a></li>
@@ -288,194 +309,190 @@
             Your browser does not support the video tag.
         </video>
 
-        <div class="absolute inset-0 bg-black opacity-20 z-10"></div>
+        <div class="absolute inset-0 bg-black opacity-30 z-10"></div>
 
         <div class="relative text-center slide-up px-6 max-w-4xl mx-auto z-20 text-white">
-            <h2 class="text-6xl md:text-8xl font-extrabold mb-6">The <span
+            <h2 class="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-4 sm:mb-6">The <span
                     style="color:var(--accent-color);">Float</span> chat</h2>
-            <p class="mt-6 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
+            <p class="mt-4 text-base sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
                 An innovative solution, meticulously crafted to transform challenges into opportunities and simplify
                 everyday experiences.
             </p>
-            <a href="#videos" class="learn-more-btn mt-12 inline-block px-10 py-5 text-lg rounded-full shadow-lg">
+            <a href="#videos"
+                class="learn-more-btn mt-8 sm:mt-12 inline-block px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg rounded-full shadow-lg">
                 Explore Our Prototype
             </a>
         </div>
     </section>
 
-    <section id="images" class="py-28 max-w-7xl mx-auto px-8 bg-secondary-bg">
-        <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">Visualizing Our Vision</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <section id="images" class="py-16 sm:py-28 max-w-7xl mx-auto px-4 sm:px-8 bg-secondary-bg">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-center mb-10 sm:mb-16 slide-up">Visualizing Our Vision</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Dashboard.png">
-                <img src="assests/Dashboard.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                <img src="assests/Dashboard.png" class="rounded-lg mb-4 w-full h-40 sm:h-56 object-cover" loading="lazy"
                     alt="Main data dashboard view">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Dashboard</h3>
-                <p class="text-gray-600 text-base">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Dashboard</h3>
+                <p class="text-gray-600 text-sm sm:text-base">
                     A high-level overview displaying key operational metrics and real-time BGC data summaries for quick
-                    analysis.
-                    This central hub provides actionable insights into the status of all tracked assets.
+                    analysis. This central hub provides actionable insights into the status of all tracked assets.
                 </p>
             </div>
             <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Float chat.png"
                 style="transition-delay: 0.1s;">
-                <img src="assests/Float chat.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                <img src="assests/Float chat.png" class="rounded-lg mb-4 w-full h-40 sm:h-56 object-cover" loading="lazy"
                     alt="AI chat interface for natural language query">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Float Chat AI </h3>
-                <p class="text-gray-600 text-base">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Float Chat AI </h3>
+                <p class="text-gray-600 text-sm sm:text-base">
                     The core interaction point where users input natural language questions to generate data queries or
-                    factual answers.
-                    It leverages RAG technology to ensure accurate, context-grounded responses from the database.
+                    factual answers. It leverages RAG technology to ensure accurate, context-grounded responses from the
+                    database.
                 </p>
             </div>
             <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Aboutus.png"
                 style="transition-delay: 0.2s;">
-                <img src="assests/Aboutus.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                <img src="assests/Aboutus.png" class="rounded-lg mb-4 w-full h-40 sm:h-56 object-cover" loading="lazy"
                     alt="About Us information screen">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">About Us</h3>
-                <p class="text-gray-600 text-base">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">About Us</h3>
+                <p class="text-gray-600 text-sm sm:text-base">
                     Details the mission and team behind the project, ensuring transparency and building user trust in
-                    the
-                    system.
-                    Discover our commitment to innovative data solutions and shaping a streamlined future.
+                    the system. Discover our commitment to innovative data solutions and shaping a streamlined future.
                 </p>
             </div>
-
             <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Map view.png"
                 style="transition-delay: 0.3s;">
-                <img src="assests/Map view.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                <img src="assests/Map view.png" class="rounded-lg mb-4 w-full h-40 sm:h-56 object-cover" loading="lazy"
                     alt="Geospatial data map visualization">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Map View</h3>
-                <p class="text-gray-600 text-base">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Map View</h3>
+                <p class="text-gray-600 text-sm sm:text-base">
                     Visual representation of geospatial data, allowing users to track and analyze BGC float deployments
-                    across oceans.
-                    This interactive feature is essential for monitoring asset locations and historical routes.
+                    across oceans. This interactive feature is essential for monitoring asset locations and historical
+                    routes.
                 </p>
             </div>
             <div class="bg-white shadow-xl rounded-xl p-3 slide-up card" data-src="assests/Settings.png"
                 style="transition-delay: 0.4s;">
-                <img src="assests/Settings.png" class="rounded-lg mb-5 w-full h-56 object-cover" loading="lazy"
+                <img src="assests/Settings.png" class="rounded-lg mb-4 w-full h-40 sm:h-56 object-cover" loading="lazy"
                     alt="User and application settings configuration">
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Settings</h3>
-                <p class="text-gray-600 text-base">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Settings</h3>
+                <p class="text-gray-600 text-sm sm:text-base">
                     Allows users to manage account preferences, configure data display options, and adjust notification
-                    settings.
-                    Control the look and feel of the interface and tailor data views to your specific needs.
+                    settings. Control the look and feel of the interface and tailor data views to your specific needs.
                 </p>
             </div>
-            <div class="hidden lg:block bg-secondary-bg/50 p-7 slide-up" style="transition-delay: 0.5s;">
-                <h3 class="text-2xl font-bold text-gray-400 mb-2">More Coming Soon!</h3>
-                <p class="text-gray-400 text-base">
+            <div class="hidden sm:block bg-secondary-bg/50 p-7 rounded-xl slide-up" style="transition-delay: 0.5s;">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-400 mb-2">More Coming Soon!</h3>
+                <p class="text-gray-400 text-sm sm:text-base">
                     We are constantly working to expand our visual data features and provide more interactive tools for
                     advanced analysis.
                 </p>
             </div>
-
         </div>
     </section>
-    <section id="videos" class="py-28 bg-white">
-        <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">The Idea in Motion</h2>
-        <div class="max-w-5xl mx-auto px-8 slide-up">
+    
+    <section id="videos" class="py-16 sm:py-28 bg-white">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-center mb-10 sm:mb-16 slide-up">The Idea in Motion</h2>
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 slide-up">
             <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-xl border border-gray-200">
                 <iframe class="absolute top-0 left-0 w-full h-full"
                     src="https://drive.google.com/file/d/1jKSSCZvoES4yDef2FPIlpj-cXHwD3aCj/preview"
                     title="Idea Explanation Video from Drive" frameborder="0"
                     allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <p class="mt-8 text-center text-gray-600 text-lg max-w-3xl mx-auto">
+            <p class="mt-6 sm:mt-8 text-center text-gray-600 text-sm sm:text-lg max-w-3xl mx-auto">
                 Watch our detailed video demonstration to fully grasp the potential and impact of this groundbreaking
                 idea.
             </p>
         </div>
     </section>
 
-    <section id="stack" class="py-28 max-w-7xl mx-auto px-8 bg-secondary-bg">
-        <h2 class="text-5xl font-extrabold text-center mb-16 slide-up">Our Technology Stack 🚀</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 text-center">
+    <section id="stack" class="py-16 sm:py-28 max-w-7xl mx-auto px-4 sm:px-8 bg-secondary-bg">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-center mb-10 sm:mb-16 slide-up">Our Technology Stack 🚀</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 sm:gap-8 text-center">
 
             <div class="slide-up">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     💻</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Frontend UI</h3>
-                <p class="text-gray-600 text-lg">Modern user interface and data visualization built with HTML,
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Frontend UI</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Modern user interface and data visualization built with HTML,
                     JavaScript, and Tailwind CSS.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.1s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">⚡
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">⚡
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Backend API</h3>
-                <p class="text-gray-600 text-lg">High-performance orchestration of the RAG pipeline and request
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Backend API</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">High-performance orchestration of the RAG pipeline and request
                     management using FastAPI.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.2s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     🧠</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">LLM Router</h3>
-                <p class="text-gray-600 text-lg">Determines user intent (SQL Query vs. Text Answer) and guides
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">LLM Router</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Determines user intent (SQL Query vs. Text Answer) and guides
                     generation using Llama3.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.3s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     ☁️</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">LLM Server</h3>
-                <p class="text-gray-600 text-lg">Locally hosts and serves the Llama3 model and embedding models via
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">LLM Server</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Locally hosts and serves the Llama3 model and embedding models via
                     Ollama.</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 mt-12 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 mt-10 sm:mt-12 sm:gap-8 text-center">
 
             <div class="slide-up" style="transition-delay: 0.4s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     🐘</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Relational Data</h3>
-                <p class="text-gray-600 text-lg">Stores all high-volume, structured numerical and time-series data using
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Relational Data</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Stores all high-volume, structured numerical and time-series data using
                     PostgreSQL.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.5s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     🗃️</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Vector Data (RAG)</h3>
-                <p class="text-gray-600 text-lg">Manages contextual definitions and metadata for grounded answers in
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Vector Data (RAG)</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Manages contextual definitions and metadata for grounded answers in
                     ChromaDB.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.6s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     🔗</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Drivers & Embeddings</h3>
-                <p class="text-gray-600 text-lg">Uses psycopg2 to connect to PostgreSQL and nomic-embed-text for vector
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Drivers & Embeddings</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Uses psycopg2 to connect to PostgreSQL and nomic-embed-text for vector
                     creation.</p>
             </div>
 
             <div class="slide-up" style="transition-delay: 0.7s;">
-                <div class="text-7xl mb-4 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
+                <div class="text-5xl sm:text-7xl mb-3 tech-icon-container mx-auto inline-block" style="color:var(--accent-color);">
                     🛠️</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Utilities</h3>
-                <p class="text-gray-600 text-lg">Handles asynchronous requests (httpx), data validation (Pydantic), and
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-900 mb-1">Utilities</h3>
+                <p class="text-gray-600 text-xs sm:text-lg">Handles asynchronous requests (httpx), data validation (Pydantic), and
                     SQL parsing (re).</p>
             </div>
         </div>
     </section>
-    <section id="about" class="py-28 max-w-4xl mx-auto px-8 bg-white">
-        <h2 class="text-5xl font-extrabold text-center mb-12 slide-up">Current Prototype Status</h2>
 
-        <p class="text-gray-600 text-xl leading-relaxed text-center slide-up mb-12">
+    <section id="about" class="py-16 sm:py-28 max-w-4xl mx-auto px-4 sm:px-8 bg-white">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-center mb-8 sm:mb-12 slide-up">Current Prototype Status</h2>
+
+        <p class="text-gray-600 text-base sm:text-xl leading-relaxed text-center slide-up mb-8 sm:mb-12">
             The FloatChat Data Viewer is a working proof-of-concept. This prototype successfully integrates a complex
-            RAG
-            and LLM pipeline to enable natural language interaction with structured data.
+            RAG and LLM pipeline to enable natural language interaction with structured data.
         </p>
 
-        <div class="space-y-10">
+        <div class="space-y-8 sm:space-y-10">
 
             <div class="flex items-start text-left slide-up" style="transition-delay: 0.1s;">
-                <div class="text-4xl mr-4" style="color:var(--accent-color);">✅</div>
+                <div class="text-2xl sm:text-4xl mr-4" style="color:var(--accent-color);">✅</div>
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Completion</h3>
-                    <p class="text-gray-600 text-lg leading-relaxed">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Completion</h3>
+                    <p class="text-gray-600 text-sm sm:text-lg leading-relaxed">
                         The end-to-end pipeline is functional, demonstrating successful data ingestion, RAG-powered SQL
                         generation, execution, and final data retrieval.
                     </p>
@@ -483,10 +500,10 @@
             </div>
 
             <div class="flex items-start text-left slide-up" style="transition-delay: 0.2s;">
-                <div class="text-4xl mr-4" style="color:var(--accent-color);">🛡️</div>
+                <div class="text-2xl sm:text-4xl mr-4" style="color:var(--accent-color);">🛡️</div>
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Validation</h3>
-                    <p class="text-gray-600 text-lg leading-relaxed">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Validation</h3>
+                    <p class="text-gray-600 text-sm sm:text-lg leading-relaxed">
                         We have successfully implemented strict prompt engineering to prevent model hallucination and
                         ensure the AI accurately discriminates between factual questions (returning text) and data
                         questions (returning SQL).
@@ -495,20 +512,26 @@
             </div>
 
             <div class="flex items-start text-left slide-up" style="transition-delay: 0.3s;">
-                <div class="text-4xl mr-4" style="color:var(--accent-color);">📈</div>
+                <div class="text-2xl sm:text-4xl mr-4" style="color:var(--accent-color);">📈</div>
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-1">Next Steps</h3>
-                    <p class="text-gray-600 text-lg leading-relaxed">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Next Steps</h3>
+                    <p class="text-gray-600 text-sm sm:text-lg leading-relaxed">
                         The core framework is massively scalable and ready to be extended with more complex BGC
                         (Biogeochemical) datasets and advanced interactive plotting features.
                     </p>
                 </div>
             </div>
         </div>
+        <div class="flex justify-center mt-12 sm:mt-16">
+            <a href="#home"
+                class="learn-more-btn px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg rounded-full shadow-lg slide-up">
+                Back to Top
+            </a>
+        </div>
     </section>
 
     <footer class="bg-dark-bg text-gray-400 text-center py-5 border-t border-gray-800">
-        <p class="text-lg">
+        <p class="text-sm sm:text-lg">
             &copy; 2025 My Idea. All rights reserved. Designed with
             <span class="text-teal-400 font-semibold">passion</span>.
         </p>
@@ -527,17 +550,48 @@
     </div>
 
     <script>
-        // Navbar scroll effect
+        const body = document.body;
         const navbar = document.getElementById("navbar");
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const desktopMenu = document.getElementById("desktop-menu");
+        
+        // --- Mobile Menu Toggle Logic (NEW) ---
+        function toggleMobileMenu() {
+            const isMenuOpen = mobileMenu.classList.contains('translate-x-full');
+            if (isMenuOpen) {
+                // Open menu
+                mobileMenu.classList.remove('translate-x-full');
+                menuBtn.innerHTML = '&#10005;'; // Close X icon
+                body.classList.add('no-scroll');
+            } else {
+                // Close menu
+                mobileMenu.classList.add('translate-x-full');
+                menuBtn.innerHTML = '&#9776;'; // Hamburger icon
+                body.classList.remove('no-scroll');
+            }
+        }
+
+        function closeMobileMenu() {
+             mobileMenu.classList.add('translate-x-full');
+             menuBtn.innerHTML = '&#9776;';
+             body.classList.remove('no-scroll');
+        }
+
+        menuBtn.addEventListener('click', toggleMobileMenu);
+
+        // --- Navbar scroll effect ---
         window.addEventListener("scroll", () => {
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
             } else {
                 navbar.classList.remove("scrolled");
             }
+            // Scroll to top button visibility
+            document.getElementById("scroll-to-top").style.display = window.scrollY > 300 ? "block" : "none";
         });
 
-        // Slide-up animations
+        // --- Slide-up animations (unchanged) ---
         const slideElements = document.querySelectorAll(".slide-up");
         const revealOnScroll = () => {
             slideElements.forEach((el) => {
@@ -550,9 +604,9 @@
         window.addEventListener("scroll", revealOnScroll);
         revealOnScroll(); // Run on load to show elements already in view
 
-        // Active navbar links
+        // --- Active navbar links (Updated to also check mobile links) ---
         const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".nav-link");
+        const navLinks = document.querySelectorAll("#desktop-menu .nav-link, #mobile-menu .mobile-menu-link");
 
         const updateActiveLink = () => {
             let current = "";
@@ -565,13 +619,13 @@
             });
             navLinks.forEach((link) => {
                 link.classList.remove("active-link");
+                // Remove the extra styles on mobile for the non-active links
                 if (link.getAttribute("href") === "#" + current) {
                     link.classList.add("active-link");
                 }
             });
         };
 
-        // Use a slight delay to ensure sections are measured correctly on load
         window.addEventListener("load", () => {
             setTimeout(updateActiveLink, 100);
         });
@@ -580,14 +634,10 @@
         updateActiveLink();
 
 
-        // Scroll to top
-        const scrollBtn = document.getElementById("scroll-to-top");
-        window.addEventListener("scroll", () => {
-            scrollBtn.style.display = window.scrollY > 300 ? "block" : "none";
-        });
-        scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        // --- Scroll to top (consolidated into scroll listener) ---
+        document.getElementById("scroll-to-top").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-        // Lightbox
+        // --- Lightbox (unchanged) ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxClose = document.querySelector('.lightbox-close');
